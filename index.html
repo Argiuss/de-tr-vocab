@@ -184,6 +184,19 @@
       color: #d1d5db;
       text-align: center;
     }
+    @media (max-width: 768px) {
+  .practice-word {
+    font-size: 40px;
+    line-height: 1.1;
+  }
+  .practice-direction {
+    font-size: 16px;
+  }
+  .example-sentence {
+    font-size: 16px;
+    padding: 0 8px;
+  }
+}
     .turkish-answer {
       margin-top: 16px;
       font-size: 32px;
@@ -1225,12 +1238,29 @@
       return '';
     }
 
-    function writingCheck(forceSkip) {
+        function writingCheck(forceSkip) {
       if (!currentCard) return;
       const { word } = currentCard;
       const dirKey = 'writing';
       const correct = word.german.trim();
 
+      // Ortak: yanlış cevap sonrası cevap ekranını göster
+      function showWritingAnswerScreen() {
+        const area = document.getElementById('practice-area');
+        area.innerHTML = `
+          <div class="practice-direction">Mode: Writing • Answer</div>
+          <div class="practice-word">${word.turkish}</div>
+          <div class="center mt-2 small">Correct German: <strong>${correct}</strong></div>
+          <div class="flex-center gap-2 mt-4">
+            <button class="btn-secondary btn-block" id="btn-next-writing">Next card</button>
+          </div>
+        `;
+        document.getElementById('btn-next-writing').onclick = () => {
+          nextCard();
+        };
+      }
+
+      // 1) Kullanıcı "Skip & repeat"e bastıysa
       if (forceSkip) {
         applyWrongWriting(word);
         if (state.session.perSessionCorrect[word.id]) {
@@ -1242,9 +1272,13 @@
         state.settings.reviewedToday++;
         saveState();
         updateStatsUI();
-        return setTimeout(nextCard, 500);
+
+        // HEMEN DOĞRU CEVABI GÖSTER
+        showWritingAnswerScreen();
+        return;
       }
 
+      // 2) Normal cevap kontrolü
       const feedbackEl = document.getElementById('writing-feedback');
       const userAnswer = document.getElementById('input-answer').value.trim();
       if (!userAnswer) {
@@ -1266,7 +1300,7 @@
         return setTimeout(nextCard, 600);
       }
 
-      // wrong attempt
+      // 3) Yanlış ama hala hakkı var → hint ver
       currentCard.attemptsLeft--;
       if (currentCard.attemptsLeft > 0) {
         let msg = 'Not correct. Try again.';
@@ -1277,7 +1311,7 @@
         if (attemptsEl) attemptsEl.textContent = currentCard.attemptsLeft;
         document.getElementById('input-answer').focus();
       } else {
-        // all attempts used: gösterim + Next
+        // 4) Haklar bitti → yanlış say, cevap ekranı
         applyWrongWriting(word);
         if (state.session.perSessionCorrect[word.id]) {
           state.session.perSessionCorrect[word.id][dirKey] = 0;
@@ -1289,26 +1323,10 @@
         saveState();
         updateStatsUI();
 
-        const germanHTML = renderGermanHTML(correct);
-        const area = document.getElementById('practice-area');
-        area.innerHTML = `
-          <div class="practice-direction">Mode: Writing • Answer</div>
-          <div class="practice-word">
-            <span>${germanHTML}</span>
-            <button class="btn-sm speak-btn" id="btn-speak-w">🔊</button>
-          </div>
-          <div class="german-answer"></div>
-          <div class="flex-center gap-2 mt-4">
-            <button class="btn-secondary btn-block" id="btn-next-writing">Next card</button>
-          </div>
-        `;
-        document.getElementById('btn-speak-w').onclick = () => speakGerman(correct);
-        document.getElementById('btn-next-writing').onclick = () => {
-          nextCard();
-        };
+        showWritingAnswerScreen();
       }
     }
-
+    
     function nextCard() {
       if (!state.session.active) {
         renderSessionSummary();
