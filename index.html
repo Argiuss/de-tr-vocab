@@ -1468,6 +1468,45 @@
           toast('Invalid JSON.', 'error');
         }
       };
+      document.getElementById('btn-import-file').onclick = () => {
+  const fileInput = document.getElementById('file-import');
+  const file = fileInput.files && fileInput.files[0];
+
+  if (!file) {
+    toast('Select a JSON file first.', 'error');
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = (e) => {
+    try {
+      const text = e.target.result;
+      const parsed = JSON.parse(text);
+
+      state.words = (parsed.words || []).map((w, idx) => ({
+        createdAt: w.createdAt || (Date.now() + idx),
+        ...w,
+      }));
+
+      state.settings = Object.assign(
+        { dailyGoal: 30, lastReviewDate: null, reviewedToday: 0 },
+        parsed.settings || {}
+      );
+
+      hardResetSession();
+      saveState();
+      updateStatsUI();
+      renderPracticeIdle();
+      toast('File import successful.', 'success');
+    } catch (err) {
+      console.error(err);
+      toast('Invalid JSON file.', 'error');
+    }
+  };
+
+  reader.readAsText(file);
+};
 
       document.getElementById('word-search').addEventListener('input', e => {
         uiState.searchQuery = e.target.value;
