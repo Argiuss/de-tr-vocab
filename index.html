@@ -412,6 +412,7 @@
         <div>
           <h3 class="mb-2">Export data</h3>
           <button class="btn-secondary btn-block mb-2" id="btn-export">Copy JSON to clipboard</button>
+          <button class="btn-outline btn-block mb-2" id="btn-export-file">Download JSON as .txt</button>
           <textarea id="textarea-export" readonly placeholder="Exported JSON will appear here"></textarea>
           <p class="muted small mt-2">Paste this JSON into a safe place (file, cloud, email). You can later import it below.</p>
         </div>
@@ -1452,6 +1453,24 @@
           toast('Exported JSON shown in textbox. Copy it manually.', 'info');
         }
       };
+      document.getElementById('btn-export-file').onclick = () => {
+  const data = {
+    words: state.words,
+    settings: state.settings,
+  };
+  const json = JSON.stringify(data, null, 2);
+
+  const blob = new Blob([json], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'vocab-backup.txt';
+  a.click();
+
+  URL.revokeObjectURL(url);
+  toast('TXT file downloaded.', 'success');
+};
 
       document.getElementById('btn-import').onclick = () => {
         if (!confirm('Importing will overwrite current data. Continue?')) return;
