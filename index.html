@@ -14,6 +14,16 @@
       color: #e5e7eb;
       padding: 16px;
     }
+    .edit-row td {
+  background: #020617;
+  padding: 10px;
+}
+
+.edit-form input,
+.edit-form textarea {
+  width: 100%;
+  margin-top: 4px;
+}
     h1, h2, h3 { margin-bottom: 8px; }
     .app-container {
       max-width: 1100px;
@@ -338,13 +348,21 @@
       <div class="grid grid-2 mb-4">
         <div>
           <h3 class="mb-2">Add single</h3>
-          <label>German</label>
-          <input type="text" id="input-german" placeholder="e.g., das Haus" />
-          <label class="mt-2">Turkish</label>
-          <input type="text" id="input-turkish" placeholder="e.g., ev" />
-          <button class="btn-primary btn-block mt-2" id="btn-add-word">Add Word</button>
-          <p class="muted small mt-2">
-            Example sentence is generated automatically (A2–B2). You can edit translations later in the backup JSON if needed.
+      <label>German</label>
+      <input type="text" id="input-german" placeholder="e.g., das Haus" />
+
+      <label class="mt-2">Turkish</label>
+      <input type="text" id="input-turkish" placeholder="e.g., ev" />
+
+      <label class="mt-2">Example sentence (optional, German)</label>
+      <textarea
+        id="input-example"
+        placeholder='e.g., Heute habe ich das Wort "das Haus" gelernt.'
+        ></textarea>
+
+      <button class="btn-primary btn-block mt-2" id="btn-add-word">Add Word</button>
+      <p class="muted small mt-2">
+          If left empty, the example sentence is generated automatically (A2–B2). You can edit it later in the word list.
           </p>
         </div>
         <div>
@@ -791,33 +809,38 @@
 
     // --- Add / bulk add with duplicate check ---
 
-    function addWord(german, turkish) {
-      const g = german.trim();
-      const t = turkish.trim();
-      if (!g || !t) {
-        toast('Please fill both German and Turkish fields.', 'error');
-        return;
-      }
-      const exists = state.words.some(
-        (w) => w.german.trim().toLowerCase() === g.toLowerCase()
-      );
-      if (exists) {
-        toast('This German word already exists.', 'error');
-        return;
-      }
-      const item = {
-        id: uuid(),
-        german: g,
-        turkish: t,
-        exampleSentence: generateExampleSentence(g),
-        stats: createEmptyStats(),
-        createdAt: Date.now(),
-        isHard: false,
-      };
-      state.words.push(item);
-      saveState();
-      updateStatsUI();
-      toast('Word added.', 'success');
+    function addWord(german, turkish, manualExample) {
+  const g = german.trim();
+  const t = turkish.trim();
+  const ex = (manualExample || '').trim();
+
+  if (!g || !t) {
+    toast('Please fill both German and Turkish fields.', 'error');
+    return;
+  }
+
+  const exists = state.words.some(
+    (w) => w.german.trim().toLowerCase() === g.toLowerCase()
+  );
+  if (exists) {
+    toast('This German word already exists.', 'error');
+    return;
+  }
+
+  const finalExample = ex || generateExampleSentence(g);
+
+  const item = {
+    id: uuid(),
+    german: g,
+    turkish: t,
+    exampleSentence: finalExample,
+    stats: createEmptyStats(),
+  };
+
+  state.words.push(item);
+  saveState();
+  updateStatsUI();
+  toast('Word added.', 'success');
     }
 
     function bulkAdd(text) {
@@ -1389,13 +1412,16 @@
 
     function setupEvents() {
       document.getElementById('btn-add-word').onclick = () => {
-        const g = document.getElementById('input-german').value;
-        const t = document.getElementById('input-turkish').value;
-        addWord(g, t);
-        document.getElementById('input-german').value = '';
-        document.getElementById('input-turkish').value = '';
-      };
+  const g = document.getElementById('input-german').value;
+  const t = document.getElementById('input-turkish').value;
+  const ex = document.getElementById('input-example').value;
 
+  addWord(g, t, ex);
+
+  document.getElementById('input-german').value = '';
+  document.getElementById('input-turkish').value = '';
+  document.getElementById('input-example').value = '';
+};
       document.getElementById('btn-bulk-add').onclick = () => {
         const txt = document.getElementById('textarea-bulk').value;
         bulkAdd(txt);
