@@ -517,7 +517,16 @@
     function uuid() {
       return Math.random().toString(36).slice(2) + Date.now().toString(36);
     }
-
+    
+    function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
     function createEmptyStats() {
       return {
         recognition: {
