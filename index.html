@@ -813,6 +813,35 @@
 
         tr.appendChild(tdActions);
         tbody.appendChild(tr);
+
+  // Inline edit row for example sentence
+  if (uiState.editingId === w.id) {
+    const trEdit = document.createElement('tr');
+    trEdit.className = 'edit-row';
+
+    const tdEdit = document.createElement('td');
+    // German, Turkish, DE→TR, TR→DE, Writing, Actions = 6 kolon
+    tdEdit.colSpan = 6;
+
+    const form = document.createElement('div');
+    form.className = 'edit-form';
+
+    const label = document.createElement('label');
+    label.textContent = 'Example sentence (German)';
+
+    const textarea = document.createElement('textarea');
+    textarea.rows = 2;
+    textarea.value = uiState.editingExample || (w.exampleSentence || '');
+    textarea.oninput = (e) => {
+      uiState.editingExample = e.target.value;
+    };
+
+    form.appendChild(label);
+    form.appendChild(textarea);
+    tdEdit.appendChild(form);
+    trEdit.appendChild(tdEdit);
+    tbody.appendChild(trEdit);
+  }
       });
     }
 
