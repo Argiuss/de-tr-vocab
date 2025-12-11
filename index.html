@@ -1476,6 +1476,7 @@ document.getElementById('btn-know').onclick = () => reviewAnswer(true);
     // --- Events ---
 
     function setupEvents() {
+      }
       document.getElementById('btn-add-word').onclick = () => {
   const g = document.getElementById('input-german').value;
   const t = document.getElementById('input-turkish').value;
@@ -1529,7 +1530,6 @@ document.getElementById('btn-know').onclick = () => reviewAnswer(true);
         state.session.active = false;
         renderSessionSummary();
       };
-
       document.getElementById('btn-export').onclick = async () => {
         const data = {
           words: state.words,
@@ -1542,7 +1542,6 @@ document.getElementById('btn-know').onclick = () => reviewAnswer(true);
           toast('Exported JSON copied to clipboard.', 'success');
         } catch {
           toast('Exported JSON shown in textbox. Copy it manually.', 'info');
-        }
       };
       document.getElementById('btn-export-file').onclick = () => {
   const data = {
