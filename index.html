@@ -1169,31 +1169,29 @@ tdActions.appendChild(btnEdit);
       word.exampleSentence = example; // ilk üretileni state'e yaz
       saveState();
       }
-        
-    // 2) Answer ekranını çiz
-area.innerHTML = `
-  <div class="practice-direction">${dirLabel}</div>
-  <div class="practice-word">
-    <span>${germanHTML}</span>
-    <button class="btn-sm speak-btn" id="btn-speak-a">🔊</button>
-  </div>
-     <div class="turkish-answer">${word.turkish}</div>
-  ${
-    example
-      ? `
-        <div class="example-sentence">
-          <span class="muted small">Example sentence (German):</span><br>${example}
-        </div>
-      `
-      : ''
-  }
-  <div class="flex-center gap-2 mt-4">
-  
-    <button class="btn-outline btn-block" id="btn-repeat">Repeat</button>
-    <button class="btn-secondary btn-block" id="btn-know">I know</button>
-  </div>
-`;
-
+          // 2) Answer ekranını çiz
+  area.innerHTML = `
+    <div class="practice-direction">${dirLabel}</div>
+    <div class="practice-word">
+      <span>${germanHTML}</span>
+      <button class="btn-sm speak-btn" id="btn-speak-a">🔊</button>
+    </div>
+    <div class="turkish-answer">${word.turkish}</div>
+    ${
+      example
+        ? `
+          <div class="example-sentence">
+            <span class="muted small">Example sentence (German):</span><br>${example}
+          </div>
+        `
+        : ''
+    }
+    <div class="flex-center gap-2 mt-4">
+      <button class="btn-outline btn-block" id="btn-repeat">Repeat</button>
+      <button class="btn-secondary btn-block" id="btn-know">I know</button>
+    </div>
+        `;
+    
     // 3) Butonların davranışı (eski kodun birebir aynısı)
     document.getElementById('btn-speak-a').onclick = () => speakGerman(word.german);
     document.getElementById('btn-repeat').onclick = () => reviewAnswer(false);
