@@ -473,7 +473,6 @@
       editingId: null,
       editingGerman: '',
       editingTurkish: '',
-      editingExample: '',
     };
 
     // --- Helpers ---
@@ -790,29 +789,26 @@
           tdActions.appendChild(btnCancel);
         } else {
           const btnEdit = document.createElement('button');
-btnEdit.textContent = 'Edit';
-btnEdit.className = 'btn-sm btn-secondary';
-btnEdit.onclick = () => {
-  if (uiState.editingId === w.id) {
-    // Edit modundan çıkarken her şeyi sıfırla
-    uiState.editingId = null;
-    uiState.editingGerman = '';
-    uiState.editingTurkish = '';
-    uiState.editingExample = '';      // 🔸 EK
-    updateStatsUI();
-    return;
-  }
+          btnEdit.textContent = 'Edit';
+          btnEdit.className = 'btn-sm btn-outline';
+          btnEdit.onclick = () => {
+            uiState.editingId = w.id;
+            uiState.editingGerman = w.german;
+            uiState.editingTurkish = w.turkish;
+            updateStatsUI();
+          };
+          tdActions.appendChild(btnEdit);
 
-  // Edit moduna girerken mevcut değerleri state'e yaz
-  uiState.editingId = w.id;
-  uiState.editingGerman = w.german;
-  uiState.editingTurkish = w.turkish;
-  uiState.editingExample = w.exampleSentence || '';  // 🔸 EK
-
-  updateStatsUI();
-};
-tdActions.appendChild(btnEdit);
-
+          const btnDelete = document.createElement('button');
+          btnDelete.textContent = 'Delete';
+          btnDelete.className = 'btn-sm btn-outline';
+          btnDelete.style.marginLeft = '6px';
+          btnDelete.onclick = () => {
+            state.words = state.words.filter(x => x.id !== w.id);
+            saveState();
+            updateStatsUI();
+          };
+          tdActions.appendChild(btnDelete);
         }
 
         tr.appendChild(tdActions);
@@ -1146,56 +1142,33 @@ tdActions.appendChild(btnEdit);
             renderPracticeCard();
           };
 
+        } else {
           // answer phase
-            } else if (currentCard.phase === 'answer') {
-    const word = currentCard.word;
-    const dirKey = currentCard.dirKey;
-    const area = document.getElementById('practice-area');
+          const germanHTML = renderGermanHTML(word.german);
+          const example = word.exampleSentence;
 
-    // Yön etiketi (zaten vardı, aynısını kullanıyoruz)
-    const dirLabel =
-      dirKey === 'deTr'
-        ? 'Direction: German → Turkish'
-        : 'Direction: Turkish → German';
+          area.innerHTML = `
+            <div class="practice-direction">${dirLabel}</div>
+            <div class="practice-word">
+              <span>${germanHTML}</span>
+              <button class="btn-sm speak-btn" id="btn-speak-a">🔊</button>
+            </div>
+            <div class="turkish-answer">${word.turkish}</div>
+            ${example ? `
+              <div class="example-sentence">
+                <span class="muted small">Example sentence (German):</span><br>${example}
+              </div>` : ''}
+            <div class="flex-center gap-2 mt-4">
+              <button class="btn-outline btn-block" id="btn-repeat">Repeat</button>
+              <button class="btn-secondary btn-block" id="btn-know">I know</button>
+            </div>
+          `;
+          document.getElementById('btn-speak-a').onclick = () => speakGerman(word.german);
+          document.getElementById('btn-repeat').onclick = () => reviewAnswer(false);
+          document.getElementById('btn-know').onclick = () => reviewAnswer(true);
+        }
 
-    // Kelimeyi güzel gösteren mevcut fonksiyon
-    const germanHTML = renderGermanHTML(word.german);
-
-    // 1) Örnek cümle: önce senin kaydettiğin, yoksa otomatik üret
-    let example = word.exampleSentence;
-    if (!example) {
-      example = generateExampleSentence(word.german.trim());
-      word.exampleSentence = example; // ilk üretileni state'e yaz
-      saveState();
-      }
- // 2) Answer ekranını çiz
-
-// 2.1 Cümleyi HTML'e çevir (varsa seninkini, yoksa boş)
-const exampleHTML = example
-  ? `<div class="example-sentence">
-        <span class="muted small">Example sentence (German):</span><br>${example}
-     </div>`
-  : '';
-
-area.innerHTML = `
-    <div class="practice-direction">${dirLabel}</div>
-    <div class="practice-word">
-        <span>${germanHTML}</span>
-        <button class="btn-sm speak-btn" id="btn-speak-a">🔊</button>
-    </div>
-    <div class="turkish-answer">${word.turkish}</div>
-    ${exampleHTML}
-    <div class="flex-center gap-2 mt-4">
-        <button class="btn-outline btn-block" id="btn-repeat">Repeat</button>
-        <button class="btn-secondary btn-block" id="btn-know">I know</button>
-    </div>
-`;
-// 3) Butonların davranışı (eski kodun birebir aynısı)
-document.getElementById('btn-speak-a').onclick = () => speakGerman(word.german);
-document.getElementById('btn-repeat').onclick = () => reviewAnswer(false);
-document.getElementById('btn-know').onclick = () => reviewAnswer(true);
-  } else if (mode === 'writing') {
-          
+      } else if (mode === 'writing') {
         area.innerHTML = `
           <div class="practice-direction">Mode: Writing • Type the German word</div>
           <div class="practice-word">${word.turkish}</div>
@@ -1476,7 +1449,6 @@ document.getElementById('btn-know').onclick = () => reviewAnswer(true);
     // --- Events ---
 
     function setupEvents() {
-      }
       document.getElementById('btn-add-word').onclick = () => {
   const g = document.getElementById('input-german').value;
   const t = document.getElementById('input-turkish').value;
@@ -1530,6 +1502,7 @@ document.getElementById('btn-know').onclick = () => reviewAnswer(true);
         state.session.active = false;
         renderSessionSummary();
       };
+
       document.getElementById('btn-export').onclick = async () => {
         const data = {
           words: state.words,
@@ -1542,6 +1515,7 @@ document.getElementById('btn-know').onclick = () => reviewAnswer(true);
           toast('Exported JSON copied to clipboard.', 'success');
         } catch {
           toast('Exported JSON shown in textbox. Copy it manually.', 'info');
+        }
       };
       document.getElementById('btn-export-file').onclick = () => {
   const data = {
@@ -1652,7 +1626,7 @@ document.getElementById('btn-know').onclick = () => reviewAnswer(true);
       document.getElementById('th-trde').addEventListener('click', () => toggleSort('trDe'));
       document.getElementById('th-writing').addEventListener('click', () => toggleSort('writing'));
     }
-    }
+
     // --- Init + PWA registration ---
 
     loadState();
@@ -1667,8 +1641,8 @@ document.getElementById('btn-know').onclick = () => reviewAnswer(true);
         navigator.serviceWorker
           .register('service-worker.js')
           .catch(err => console.log('SW registration failed', err));
-  }
-}}) 
-</script>
+      }
+    });
+  </script>
 </body>
- </html>
+</html>
