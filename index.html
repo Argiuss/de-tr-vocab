@@ -347,17 +347,20 @@
       <div class="grid grid-2 mb-4">
         <div>
           <h3 class="mb-2">Add single</h3>
-      <label>German</label>
+      <label for="input-german">German</label>
       <input type="text" id="input-german" placeholder="e.g., das Haus" />
 
-      <label class="mt-2">Turkish</label>
+
+      <label class="mt-2" for="input-turkish">Turkish</label>
       <input type="text" id="input-turkish" placeholder="e.g., ev" />
 
-      <label class="mt-2">Example sentence (optional, German)</label>
+
+      <<label class="mt-2" for="input-example">Example sentence (optional, German)</label>
       <textarea
-        id="input-example"
-        placeholder='e.g., Heute habe ich das Wort "das Haus" gelernt.'
-        ></textarea>
+      id="input-example"
+      placeholder='e.g., Heute habe ich das Wort "das Haus" gelernt.'
+      ></textarea>
+
 
       <button class="btn-primary btn-block mt-2" id="btn-add-word">Add Word</button>
       <p class="muted small mt-2">
@@ -366,8 +369,11 @@
         </div>
         <div>
           <h3 class="mb-2">Bulk add</h3>
-          <label>Format: <code>German - Turkish</code>, one per line</label>
+          <label for="textarea-bulk">
+            Format: <code>German - Turkish</code>, one per line
+          </label>
           <textarea id="textarea-bulk" placeholder="gehen - gitmek&#10;die Stadt - şehir"></textarea>
+
           <button class="btn-outline btn-block mt-2" id="btn-bulk-add">Add bulk</button>
         </div>
       </div>
