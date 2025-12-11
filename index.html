@@ -353,12 +353,12 @@
 
       <label class="mt-2">Turkish</label>
       <input type="text" id="input-turkish" placeholder="e.g., ev" />
-
+          
       <label class="mt-2">Example sentence (optional, German)</label>
       <textarea
-        id="input-example"
-        placeholder='e.g., Heute habe ich das Wort "das Haus" gelernt.'
-        ></textarea>
+      id="input-example"
+      placeholder='e.g., Heute habe ich das Wort "das Haus" gelernt.'>
+      </textarea>
 
       <button class="btn-primary btn-block mt-2" id="btn-add-word">Add Word</button>
       <p class="muted small mt-2">
@@ -762,17 +762,29 @@
               toast('This German word already exists.', 'error');
               return;
             }
-            const germanChanged = newG !== w.german;
-            w.german = newG;
-            w.turkish = newT;
-            if (germanChanged) {
-              w.exampleSentence = generateExampleSentence(newG);
-            }
-            uiState.editingId = null;
-            uiState.editingGerman = '';
-            uiState.editingTurkish = '';
-            saveState();
-            updateStatsUI();
+            const newExample = (uiState.editingExample || '').trim();
+const germanChanged = newG !== w.german;
+
+w.german = newG;
+w.turkish = newT;
+
+// 1) Eğer edit formunda örnek cümle yazdıysan onu kaydet
+if (newExample) {
+  w.exampleSentence = newExample;
+}
+// 2) Örnek cümle boşsa ve Almanca kelimeyi değiştirdiysen,
+//    hala örnek yoksa otomatik üret (eski davranışın "temiz" versiyonu)
+else if (germanChanged && !w.exampleSentence) {
+  w.exampleSentence = generateExampleSentence(newG);
+}
+
+uiState.editingId = null;
+uiState.editingGerman = '';
+uiState.editingTurkish = '';
+uiState.editingExample = '';
+saveState();
+updateStatsUI();
+
           };
           tdActions.appendChild(btnSave);
 
@@ -818,10 +830,10 @@
 
     // --- Add / bulk add with duplicate check ---
 
-    function addWord(german, turkish, manualExample) {
+    function addWord(german, turkish, exampleSentenceRaw) {
   const g = german.trim();
   const t = turkish.trim();
-  const ex = (manualExample || '').trim();
+  const ex = (exampleSentenceRaw || '').trim();
 
   if (!g || !t) {
     toast('Please fill both German and Turkish fields.', 'error');
@@ -836,22 +848,20 @@
     return;
   }
 
-  const finalExample = ex || generateExampleSentence(g);
-
   const item = {
     id: uuid(),
     german: g,
     turkish: t,
-    exampleSentence: finalExample,
+    // Eğer kullanıcı cümle girdiyse onu kullan,
+    // boş bıraktıysa otomatik üret
+    exampleSentence: ex || generateExampleSentence(g),
     stats: createEmptyStats(),
   };
-
   state.words.push(item);
   saveState();
   updateStatsUI();
   toast('Word added.', 'success');
-    }
-
+}
     function bulkAdd(text) {
       const lines = text.split('\n');
       let added = 0;
@@ -1271,20 +1281,6 @@
       const { word } = currentCard;
       const dirKey = 'writing';
       const correct = word.german.trim();
-
-      // Ortak: yanlış cevap sonrası cevap ekranını göster
-      function showWritingAnswerScreen() {
-        const area = document.getElementById('practice-area');
-        area.innerHTML = `
-          <div class="practice-direction">Mode: Writing • Answer</div>
-          <div class="practice-word">${word.turkish}</div>
-          <div class="center mt-2 small">Correct German: <strong>${correct}</strong></div>
-          <div class="flex-center gap-2 mt-4">
-            <button class="btn-secondary btn-block" id="btn-next-writing">Next card</button>
-          </div>
-        `;
-        document.getElementById('btn-next-writing').onclick = () => {
-          nextCard();
         };
       }
 
