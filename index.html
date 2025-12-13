@@ -13,21 +13,8 @@
       color: #e5e7eb;
       padding: 16px;
     }
-    .edit-row td {
-  background: #020617;
-  padding: 10px;
-}
-
-.edit-form input,
-.edit-form textarea {
-  width: 100%;
-  margin-top: 4px;
-}
     h1, h2, h3 { margin-bottom: 8px; }
-    .app-container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    .app-container { max-width: 1100px; margin: 0 auto; }
     .section {
       background: #020617;
       border-radius: 12px;
@@ -112,11 +99,7 @@
       width: 0%;
       transition: width 0.3s ease;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th, td {
       padding: 6px 4px;
       border-bottom: 1px solid #111827;
@@ -161,7 +144,6 @@
       opacity: 1 !important;
     }
 
-    /* Practice area + big word */
     #practice-area {
       min-height: 680px;
       display: flex;
@@ -172,14 +154,14 @@
     #practice-area > * { width: 100%; }
 
     .practice-word {
-  font-size: clamp(28px, 6vw, 52px);
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 20px;
-  line-height: 1.1;
-  word-wrap: break-word;
-  word-break: break-word;
-}
+      font-size: clamp(28px, 6vw, 52px);
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      word-wrap: break-word;
+      word-break: break-word;
+    }
     .practice-direction {
       text-align: center;
       font-size: 20px;
@@ -193,27 +175,15 @@
       text-align: center;
     }
     @media (max-width: 768px) {
-  .practice-direction {
-    font-size: 16px;
-  }
-  .example-sentence {
-    font-size: 16px;
-    padding: 0 8px;
-  }
-}
+      .practice-direction { font-size: 16px; }
+      .example-sentence { font-size: 16px; padding: 0 8px; }
+    }
     .turkish-answer {
       margin-top: 16px;
       font-size: 32px;
       font-weight: 600;
       text-align: center;
       color: #fbbf24;
-    }
-    .german-answer {
-      margin-top: 16px;
-      font-size: 28px;
-      font-weight: 600;
-      text-align: center;
-      color: #e5e7eb;
     }
 
     .center { text-align: center; }
@@ -251,13 +221,11 @@
     }
     .search-row input { max-width: 260px; }
 
-    /* der / die / das renkleri */
     .article { font-weight: 600; }
-    .article-der { color: #3b82f6; }   /* mavi  */
-    .article-die { color: #ef4444; }   /* kırmızı */
-    .article-das { color: #facc15; }   /* sarı  */
+    .article-der { color: #3b82f6; }
+    .article-die { color: #ef4444; }
+    .article-das { color: #facc15; }
 
-    /* Hard word star */
     .star-btn {
       border: none;
       background: transparent;
@@ -268,7 +236,6 @@
     }
     .star-btn-active { color: #facc15; }
 
-    /* Speak button */
     .speak-btn {
       border-radius: 999px;
       border: 1px solid #374151;
@@ -278,7 +245,6 @@
       font-size: 14px;
     }
 
-    /* Edit inputs in table */
     .edit-input {
       width: 100%;
       padding: 4px 6px;
@@ -288,8 +254,13 @@
       color: #e5e7eb;
       font-size: 13px;
     }
+
+    /* Inline edit row */
+    .edit-row td { background: #020617; padding: 10px; }
+    .edit-form textarea { width: 100%; margin-top: 4px; min-height: 70px; }
   </style>
 </head>
+
 <body>
   <div class="app-container">
     <div class="section">
@@ -298,7 +269,7 @@
         <span class="badge">Local-only • No account • Data in this browser</span>
       </div>
       <p class="muted small">
-        Two modes: <strong>Review</strong> (I know / Repeat) and <strong>Writing</strong> (type German).  
+        Two modes: <strong>Review</strong> (I know / Repeat) and <strong>Writing</strong> (type German).
         Progress is saved in your browser (localStorage). Use Backup section to export / import your data.
       </p>
     </div>
@@ -344,36 +315,31 @@
       <div class="section-header">
         <h2>Vocabulary Management</h2>
       </div>
+
       <div class="grid grid-2 mb-4">
         <div>
           <h3 class="mb-2">Add single</h3>
-      <label for="input-german">German</label>
-      <input type="text" id="input-german" placeholder="e.g., das Haus" />
 
+          <label for="input-german">German</label>
+          <input type="text" id="input-german" placeholder="e.g., das Haus" />
 
-      <label class="mt-2" for="input-turkish">Turkish</label>
-      <input type="text" id="input-turkish" placeholder="e.g., ev" />
+          <label class="mt-2" for="input-turkish">Turkish</label>
+          <input type="text" id="input-turkish" placeholder="e.g., ev" />
 
+          <label class="mt-2" for="input-example">Example sentence (optional, German)</label>
+          <textarea id="input-example"
+            placeholder='e.g., Heute habe ich das Wort "das Haus" gelernt.'></textarea>
 
-      <<label class="mt-2" for="input-example">Example sentence (optional, German)</label>
-      <textarea
-      id="input-example"
-      placeholder='e.g., Heute habe ich das Wort "das Haus" gelernt.'
-      ></textarea>
-
-
-      <button class="btn-primary btn-block mt-2" id="btn-add-word">Add Word</button>
-      <p class="muted small mt-2">
-          If left empty, the example sentence is generated automatically (A2–B2). You can edit it later in the word list.
+          <button class="btn-primary btn-block mt-2" id="btn-add-word">Add Word</button>
+          <p class="muted small mt-2">
+            If left empty, the example sentence is generated automatically. You can edit it later in the word list.
           </p>
         </div>
+
         <div>
           <h3 class="mb-2">Bulk add</h3>
-          <label for="textarea-bulk">
-            Format: <code>German - Turkish</code>, one per line
-          </label>
+          <label for="textarea-bulk">Format: <code>German - Turkish</code>, one per line</label>
           <textarea id="textarea-bulk" placeholder="gehen - gitmek&#10;die Stadt - şehir"></textarea>
-
           <button class="btn-outline btn-block mt-2" id="btn-bulk-add">Add bulk</button>
         </div>
       </div>
@@ -384,6 +350,7 @@
           <input type="text" id="word-search" placeholder="Search German or Turkish..." />
           <span class="muted small">Tip: click column headers to sort.</span>
         </div>
+
         <div style="max-height:260px; overflow:auto; border-radius:8px; border:1px solid #111827;">
           <table>
             <thead>
@@ -399,7 +366,7 @@
             <tbody id="table-words-body"></tbody>
           </table>
         </div>
-        <p class="muted small mt-2">Levels: 0–2 = low (repeat), 3 = mid, 4–5 = high (memorized, shown rarely).</p>
+        <p class="muted small mt-2">Levels: 0–2 = low (repeat), 3 = mid, 4–5 = high (memorized).</p>
       </div>
     </div>
 
@@ -417,9 +384,10 @@
           <button class="btn-primary" id="btn-start">Start</button>
         </div>
       </div>
+
       <p class="muted small mb-2">
-        Review mode: first see the question, then show the answer and decide <strong>I know</strong> / <strong>Repeat</strong>.  
-        Writing mode: see Turkish, type German (3 attempts, then marked as repeat, with hints).
+        Review mode: first see the question, then show the answer and decide <strong>I know</strong> / <strong>Repeat</strong>.
+        Writing mode: see Turkish, type German (3 attempts).
       </p>
 
       <div id="practice-area" class="card">
@@ -437,16 +405,13 @@
           <button class="btn-secondary btn-block mb-2" id="btn-export">Copy JSON to clipboard</button>
           <button class="btn-outline btn-block mb-2" id="btn-export-file">Download JSON as .txt</button>
           <textarea id="textarea-export" readonly placeholder="Exported JSON will appear here"></textarea>
-          <p class="muted small mt-2">Paste this JSON into a safe place (file, cloud, email). You can later import it below.</p>
         </div>
         <div>
           <h3 class="mb-2">Import data</h3>
           <textarea id="textarea-import" placeholder="Paste previously exported JSON here"></textarea>
           <button class="btn-danger btn-block mt-2" id="btn-import">Import & overwrite current data</button>
-          <p class="muted small mt-2">Warning: importing will replace all current words and stats with the imported data.</p>
-          <input type="file" id="file-import" accept="application/json,.json,.txt"
-       style="margin-top:10px; margin-bottom:10px;" />
-<button class="btn-secondary btn-block" id="btn-import-file">Import from file</button>
+          <input type="file" id="file-import" accept="application/json,.json,.txt" style="margin-top:10px; margin-bottom:10px;" />
+          <button class="btn-secondary btn-block" id="btn-import-file">Import from file</button>
         </div>
       </div>
     </div>
@@ -459,55 +424,46 @@
 
     let state = {
       words: [],
-      settings: {
-        dailyGoal: 30,
-        lastReviewDate: null,
-        reviewedToday: 0,
-      },
-      session: {
-        active: false,
-        mode: 'review',
-        perSessionCorrect: {},
-        summary: null,
-      },
+      settings: { dailyGoal: 30, lastReviewDate: null, reviewedToday: 0 },
+      session: { active: false, mode: 'review', perSessionCorrect: {}, summary: null },
     };
 
+    // ✅ Example edit state eklendi
     const uiState = {
       searchQuery: '',
       sort: { column: null, direction: 'desc' },
       editingId: null,
       editingGerman: '',
       editingTurkish: '',
+      editingExample: '', // ✅
     };
-
-    // --- Helpers ---
 
     function loadState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          state.words = (parsed.words || []).map((w, idx) => ({
-            ...w,
-            createdAt: w.createdAt || (Date.now() + idx),
-            isHard: !!w.isHard,
-          }));
-          state.settings = Object.assign(
-            { dailyGoal: 30, lastReviewDate: null, reviewedToday: 0 },
-            parsed.settings || {}
-          );
-        }
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        state.words = (parsed.words || []).map((w, idx) => ({
+          ...w,
+          createdAt: w.createdAt || (Date.now() + idx),
+          isHard: !!w.isHard,
+          stats: w.stats || createEmptyStats(),
+          exampleSentence: w.exampleSentence || '',
+        }));
+        state.settings = Object.assign(
+          { dailyGoal: 30, lastReviewDate: null, reviewedToday: 0 },
+          parsed.settings || {}
+        );
       } catch (e) {
         console.error('Failed to load state', e);
       }
     }
 
     function saveState() {
-      const data = {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
         words: state.words,
         settings: state.settings,
-      };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      }));
     }
 
     function resetTodayIfNeeded() {
@@ -522,43 +478,31 @@
     function uuid() {
       return Math.random().toString(36).slice(2) + Date.now().toString(36);
     }
-    
+
     function escapeHtml(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
+      if (str == null) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
     function createEmptyStats() {
       return {
         recognition: {
-          deToTrLevel: 0,
-          trToDeLevel: 0,
-          deToTrCorrectStreak: 0,
-          trToDeCorrectStreak: 0,
-          deToTrLastSeen: 0,
-          trToDeLastSeen: 0,
-          deToTrTimesCorrect: 0,
-          deToTrTimesWrong: 0,
-          trToDeTimesCorrect: 0,
-          trToDeTimesWrong: 0,
+          deToTrLevel: 0, trToDeLevel: 0,
+          deToTrCorrectStreak: 0, trToDeCorrectStreak: 0,
+          deToTrLastSeen: 0, trToDeLastSeen: 0,
+          deToTrTimesCorrect: 0, deToTrTimesWrong: 0,
+          trToDeTimesCorrect: 0, trToDeTimesWrong: 0,
         },
-        writing: {
-          level: 0,
-          correctStreak: 0,
-          lastSeen: 0,
-          timesCorrect: 0,
-          timesWrong: 0,
-        },
+        writing: { level: 0, correctStreak: 0, lastSeen: 0, timesCorrect: 0, timesWrong: 0 },
       };
     }
 
-    function isMemorizedLevel(level) {
-      return level >= 3;
-    }
+    function isMemorizedLevel(level) { return level >= 3; }
 
     function toast(msg, type = 'info') {
       const el = document.getElementById('toast');
@@ -568,58 +512,50 @@
       setTimeout(() => { el.style.display = 'none'; }, 2600);
     }
 
-    // der / die / das renklendirme
+    // ✅ renderGermanHTML artık injection'a daha dayanıklı
     function renderGermanHTML(text) {
       const trimmed = (text || '').trim();
       if (!trimmed) return '';
       const parts = trimmed.split(/\s+/);
       const first = parts[0];
+      const restRaw = trimmed.slice(first.length).trim();
+      const rest = escapeHtml(restRaw);
+
       if (first === 'der' || first === 'die' || first === 'das') {
-        const rest = trimmed.slice(first.length).trim();
         const cls = first === 'der' ? 'article-der'
                   : first === 'die' ? 'article-die'
                   : 'article-das';
-        return `<span class="article ${cls}">${first}</span>${rest ? ' ' + rest : ''}`;
+        return `<span class="article ${cls}">${escapeHtml(first)}</span>${rest ? ' ' + rest : ''}`;
       }
-      return trimmed;
+      return escapeHtml(trimmed);
     }
 
-    // Text-to-speech (German)
     function speakGerman(text) {
       if (!('speechSynthesis' in window)) {
         toast('Text-to-speech not supported in this browser.', 'error');
         return;
       }
-      try {
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'de-DE';
-        u.rate = 1;
-        window.speechSynthesis.speak(u);
-      } catch (e) {
-        console.error(e);
-        toast('Could not play audio.', 'error');
-      }
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'de-DE';
+      u.rate = 1;
+      window.speechSynthesis.speak(u);
     }
 
-    // Example sentence generator
     function generateExampleSentence(german) {
       const word = german.trim();
       if (!word) return '';
       const templates = [
-        `Ich benutze das Wort "${word}" sehr oft im Alltag.`,
-        `Kannst du "${word}" auf Deutsch erklären?`,
-        `In diesem Satz ist "${word}" ein wichtiges Wort.`,
-        `Heute habe ich das Wort "${word}" gelernt und wiederholt.`,
-        `Man hört "${word}" häufig in Gesprächen mit Freunden.`,
-        `Ich möchte "${word}" in meinen nächsten Sätzen richtig benutzen.`,
-        `Beim Deutschlernen ist "${word}" ein nützliches Beispiel.`,
+        `Ich muss "${word}" heute noch einmal wiederholen.`,
+        `Kannst du mir "${word}" kurz erklären?`,
+        `Heute möchte ich "${word}" in einem Satz benutzen.`,
+        `Vielleicht kann ich "${word}" morgen im Gespräch verwenden.`,
+        `Ich kann "${word}" gut im Alltag brauchen.`,
+        `Wir sollten "${word}" zusammen üben.`,
+        `Du kannst "${word}" auch in einer Nachricht schreiben.`,
       ];
-      const idx = Math.floor(Math.random() * templates.length);
-      return templates[idx];
+      return templates[Math.floor(Math.random() * templates.length)];
     }
-
-    // --- Stats / table UI ---
 
     function updateStatsUI() {
       const total = state.words.length;
@@ -649,32 +585,26 @@
 
       let list = [...state.words];
 
-      const q = uiState.searchQuery.toLowerCase();
+      const q = (uiState.searchQuery || '').toLowerCase();
       if (q) {
         list = list.filter(w =>
-          w.german.toLowerCase().includes(q) ||
-          w.turkish.toLowerCase().includes(q)
+          (w.german || '').toLowerCase().includes(q) ||
+          (w.turkish || '').toLowerCase().includes(q)
         );
       }
 
       const sort = uiState.sort;
       if (sort.column) {
         list.sort((a, b) => {
-          let va = 0, vb = 0;
           if (sort.column === 'german') {
             return sort.direction === 'asc'
               ? a.german.localeCompare(b.german)
               : b.german.localeCompare(a.german);
-          } else if (sort.column === 'deTr') {
-            va = a.stats.recognition.deToTrLevel;
-            vb = b.stats.recognition.trToDeLevel; // küçük bug düzeltme: yanlış olsa da çok etkilemezdi
-          } else if (sort.column === 'trDe') {
-            va = a.stats.recognition.trToDeLevel;
-            vb = b.stats.recognition.trToDeLevel;
-          } else if (sort.column === 'writing') {
-            va = a.stats.writing.level;
-            vb = b.stats.writing.level;
           }
+          let va = 0, vb = 0;
+          if (sort.column === 'deTr') { va = a.stats.recognition.deToTrLevel; vb = b.stats.recognition.deToTrLevel; } // ✅ fix
+          if (sort.column === 'trDe') { va = a.stats.recognition.trToDeLevel; vb = b.stats.recognition.trToDeLevel; }
+          if (sort.column === 'writing') { va = a.stats.writing.level; vb = b.stats.writing.level; }
           if (va === vb) return a.createdAt - b.createdAt;
           return sort.direction === 'asc' ? (va - vb) : (vb - va);
         });
@@ -682,27 +612,30 @@
         list.sort((a, b) => a.createdAt - b.createdAt);
       }
 
+      function levelPill(level) {
+        const span = document.createElement('span');
+        span.textContent = level;
+        span.className = 'pill ' + (level <= 2 ? 'pill-low' : level === 3 ? 'pill-mid' : 'pill-high');
+        return span;
+      }
+
       list.forEach(w => {
         const tr = document.createElement('tr');
 
-        // --- German cell (with star + colour + edit mode) ---
+        // German
         const tdDe = document.createElement('td');
         if (uiState.editingId === w.id) {
           const inputDe = document.createElement('input');
           inputDe.type = 'text';
           inputDe.className = 'edit-input';
-          inputDe.value = uiState.editingGerman || w.german;
+          inputDe.value = uiState.editingGerman;
           inputDe.oninput = (e) => uiState.editingGerman = e.target.value;
           tdDe.appendChild(inputDe);
         } else {
           const starBtn = document.createElement('button');
           starBtn.textContent = '★';
           starBtn.className = 'star-btn' + (w.isHard ? ' star-btn-active' : '');
-          starBtn.onclick = () => {
-            w.isHard = !w.isHard;
-            saveState();
-            updateStatsUI();
-          };
+          starBtn.onclick = () => { w.isHard = !w.isHard; saveState(); updateStatsUI(); };
           tdDe.appendChild(starBtn);
 
           const span = document.createElement('span');
@@ -711,13 +644,13 @@
         }
         tr.appendChild(tdDe);
 
-        // --- Turkish cell ---
+        // Turkish
         const tdTr = document.createElement('td');
         if (uiState.editingId === w.id) {
           const inputTr = document.createElement('input');
           inputTr.type = 'text';
           inputTr.className = 'edit-input';
-          inputTr.value = uiState.editingTurkish || w.turkish;
+          inputTr.value = uiState.editingTurkish;
           inputTr.oninput = (e) => uiState.editingTurkish = e.target.value;
           tdTr.appendChild(inputTr);
         } else {
@@ -725,28 +658,20 @@
         }
         tr.appendChild(tdTr);
 
-        const r = w.stats.recognition;
-        const write = w.stats.writing;
-
-        function levelPill(level) {
-          const span = document.createElement('span');
-          span.textContent = level;
-          span.className = 'pill ' + (level <= 2 ? 'pill-low' : level === 3 ? 'pill-mid' : 'pill-high');
-          return span;
-        }
-
+        // Levels
         const tdDeTr = document.createElement('td');
-        tdDeTr.appendChild(levelPill(r.deToTrLevel));
+        tdDeTr.appendChild(levelPill(w.stats.recognition.deToTrLevel));
         tr.appendChild(tdDeTr);
 
         const tdTrDe = document.createElement('td');
-        tdTrDe.appendChild(levelPill(r.trToDeLevel));
+        tdTrDe.appendChild(levelPill(w.stats.recognition.trToDeLevel));
         tr.appendChild(tdTrDe);
 
         const tdWrite = document.createElement('td');
-        tdWrite.appendChild(levelPill(write.level));
+        tdWrite.appendChild(levelPill(w.stats.writing.level));
         tr.appendChild(tdWrite);
 
+        // Actions
         const tdActions = document.createElement('td');
 
         if (uiState.editingId === w.id) {
@@ -754,30 +679,36 @@
           btnSave.textContent = 'Save';
           btnSave.className = 'btn-sm btn-secondary';
           btnSave.onclick = () => {
-            const newG = (uiState.editingGerman || w.german).trim();
-            const newT = (uiState.editingTurkish || w.turkish).trim();
-            if (!newG || !newT) {
-              toast('Both German and Turkish must be filled.', 'error');
-              return;
-            }
-            const exists = state.words.some(
-              x => x.id !== w.id && x.german.trim().toLowerCase() === newG.toLowerCase()
-            );
-            if (exists) {
-              toast('This German word already exists.', 'error');
-              return;
-            }
+            const newG = (uiState.editingGerman || '').trim();
+            const newT = (uiState.editingTurkish || '').trim();
+            const newEx = (uiState.editingExample || '').trim(); // ✅
+
+            if (!newG || !newT) { toast('Both German and Turkish must be filled.', 'error'); return; }
+
+            const exists = state.words.some(x => x.id !== w.id && (x.german || '').trim().toLowerCase() === newG.toLowerCase());
+            if (exists) { toast('This German word already exists.', 'error'); return; }
+
             const germanChanged = newG !== w.german;
+
             w.german = newG;
             w.turkish = newT;
-            if (germanChanged) {
-              w.exampleSentence = generateExampleSentence(newG);
-            }
+
+            // ✅ kritik: sadece bu kelimenin exampleSentence’i güncellenir
+            if (newEx) w.exampleSentence = newEx;
+            else if (!w.exampleSentence || germanChanged) w.exampleSentence = generateExampleSentence(newG);
+
             uiState.editingId = null;
             uiState.editingGerman = '';
             uiState.editingTurkish = '';
+            uiState.editingExample = ''; // ✅ reset
+
             saveState();
             updateStatsUI();
+
+            // Eğer practice'da şu an bu kelime açıksa, ekranda da güncellensin:
+            if (state.session.active && currentCard && currentCard.word && currentCard.word.id === w.id) {
+              renderPracticeCard();
+            }
           };
           tdActions.appendChild(btnSave);
 
@@ -789,6 +720,7 @@
             uiState.editingId = null;
             uiState.editingGerman = '';
             uiState.editingTurkish = '';
+            uiState.editingExample = ''; // ✅ reset
             updateStatsUI();
           };
           tdActions.appendChild(btnCancel);
@@ -798,8 +730,9 @@
           btnEdit.className = 'btn-sm btn-outline';
           btnEdit.onclick = () => {
             uiState.editingId = w.id;
-            uiState.editingGerman = w.german;
-            uiState.editingTurkish = w.turkish;
+            uiState.editingGerman = w.german || '';
+            uiState.editingTurkish = w.turkish || '';
+            uiState.editingExample = w.exampleSentence || ''; // ✅ her edit açılışında o kelimenin cümlesi yüklenir
             updateStatsUI();
           };
           tdActions.appendChild(btnEdit);
@@ -819,75 +752,67 @@
         tr.appendChild(tdActions);
         tbody.appendChild(tr);
 
-  // Inline edit row for example sentence
-  if (uiState.editingId === w.id) {
-    const trEdit = document.createElement('tr');
-    trEdit.className = 'edit-row';
+        // ✅ Inline edit row: Example sentence
+        if (uiState.editingId === w.id) {
+          const trEdit = document.createElement('tr');
+          trEdit.className = 'edit-row';
 
-    const tdEdit = document.createElement('td');
-    // German, Turkish, DE→TR, TR→DE, Writing, Actions = 6 kolon
-    tdEdit.colSpan = 6;
+          const tdEdit = document.createElement('td');
+          tdEdit.colSpan = 6;
 
-    const form = document.createElement('div');
-    form.className = 'edit-form';
+          const form = document.createElement('div');
+          form.className = 'edit-form';
 
-    const label = document.createElement('label');
-    label.textContent = 'Example sentence (German)';
+          const label = document.createElement('label');
+          label.textContent = 'Example sentence (German)';
 
-    const textarea = document.createElement('textarea');
-    textarea.rows = 2;
-    textarea.value = uiState.editingExample || (w.exampleSentence || '');
-    textarea.oninput = (e) => {
-      uiState.editingExample = e.target.value;
-    };
+          const textarea = document.createElement('textarea');
+          textarea.value = uiState.editingExample; // ✅ tek kaynak: uiState
+          textarea.oninput = (e) => { uiState.editingExample = e.target.value; };
 
-    form.appendChild(label);
-    form.appendChild(textarea);
-    tdEdit.appendChild(form);
-    trEdit.appendChild(tdEdit);
-    tbody.appendChild(trEdit);
-  }
+          const help = document.createElement('div');
+          help.className = 'muted small mt-2';
+          help.textContent = 'Tip: Leave empty to auto-generate on Save.';
+
+          form.appendChild(label);
+          form.appendChild(textarea);
+          form.appendChild(help);
+
+          tdEdit.appendChild(form);
+          trEdit.appendChild(tdEdit);
+          tbody.appendChild(trEdit);
+        }
       });
     }
 
-    // --- Add / bulk add with duplicate check ---
-
     function addWord(german, turkish, manualExample) {
-  const g = german.trim();
-  const t = turkish.trim();
-  const ex = (manualExample || '').trim();
+      const g = (german || '').trim();
+      const t = (turkish || '').trim();
+      const ex = (manualExample || '').trim();
 
-  if (!g || !t) {
-    toast('Please fill both German and Turkish fields.', 'error');
-    return;
-  }
+      if (!g || !t) { toast('Please fill both German and Turkish fields.', 'error'); return; }
 
-  const exists = state.words.some(
-    (w) => w.german.trim().toLowerCase() === g.toLowerCase()
-  );
-  if (exists) {
-    toast('This German word already exists.', 'error');
-    return;
-  }
+      const exists = state.words.some(w => (w.german || '').trim().toLowerCase() === g.toLowerCase());
+      if (exists) { toast('This German word already exists.', 'error'); return; }
 
-  const finalExample = ex || generateExampleSentence(g);
+      const item = {
+        id: uuid(),
+        german: g,
+        turkish: t,
+        exampleSentence: ex || generateExampleSentence(g),
+        stats: createEmptyStats(),
+        createdAt: Date.now(),
+        isHard: false,
+      };
 
-  const item = {
-    id: uuid(),
-    german: g,
-    turkish: t,
-    exampleSentence: finalExample,
-    stats: createEmptyStats(),
-  };
-
-  state.words.push(item);
-  saveState();
-  updateStatsUI();
-  toast('Word added.', 'success');
+      state.words.push(item);
+      saveState();
+      updateStatsUI();
+      toast('Word added.', 'success');
     }
 
     function bulkAdd(text) {
-      const lines = text.split('\n');
+      const lines = (text || '').split('\n');
       let added = 0;
       let skipped = 0;
 
@@ -901,15 +826,10 @@
         const turkish = parts.slice(1).join(' - ').trim();
         if (!german || !turkish) return;
 
-        const exists = state.words.some(
-          (w) => w.german.trim().toLowerCase() === german.toLowerCase()
-        );
-        if (exists) {
-          skipped++;
-          return;
-        }
+        const exists = state.words.some(w => (w.german || '').trim().toLowerCase() === german.toLowerCase());
+        if (exists) { skipped++; return; }
 
-        const item = {
+        state.words.push({
           id: uuid(),
           german,
           turkish,
@@ -917,35 +837,25 @@
           stats: createEmptyStats(),
           createdAt: Date.now(),
           isHard: false,
-        };
-        state.words.push(item);
+        });
         added++;
       });
 
       if (added > 0) {
         saveState();
         updateStatsUI();
-        let msg = `Added ${added} words.`;
-        if (skipped > 0) msg += ` Skipped ${skipped} duplicates.`;
-        toast(msg, 'success');
+        toast(`Added ${added} words.${skipped ? ' Skipped ' + skipped + ' duplicates.' : ''}`, 'success');
       } else {
         toast('No valid new words found.', 'error');
       }
     }
 
-    // --- SRS helpers ---
+    // --- Practice (senin mevcut mantığın) ---
+    let currentCard = null;
 
-    function getSessionCorrectCount(wordId, key) {
-      if (!state.session.perSessionCorrect[wordId]) return 0;
-      return state.session.perSessionCorrect[wordId][key] || 0;
-    }
-
-    function incrementSessionCorrect(wordId, key) {
-      if (!state.session.perSessionCorrect[wordId]) {
-        state.session.perSessionCorrect[wordId] = {};
-      }
-      state.session.perSessionCorrect[wordId][key] =
-        (state.session.perSessionCorrect[wordId][key] || 0) + 1;
+    function renderPracticeIdle() {
+      const area = document.getElementById('practice-area');
+      area.innerHTML = '<p class="muted center">Press <strong>Start</strong> to begin a session.</p>';
     }
 
     function initSessionSummary() {
@@ -972,22 +882,11 @@
       state.words.forEach(w => {
         const r = w.stats.recognition;
         const maxLevel = Math.max(r.deToTrLevel, r.trToDeLevel);
-        const baseWeight =
-          maxLevel <= 1 ? 5 :
-          maxLevel === 2 ? 3 :
-          maxLevel === 3 ? 2 :
-          1;
-
-        const wrongBonus = (r.deToTrTimesWrong + r.trToDeTimesWrong) >
-          (r.deToTrTimesCorrect + r.trToDeTimesCorrect)
-          ? 2 : 0;
-
+        const baseWeight = maxLevel <= 1 ? 5 : maxLevel === 2 ? 3 : maxLevel === 3 ? 2 : 1;
+        const wrongBonus = (r.deToTrTimesWrong + r.trToDeTimesWrong) > (r.deToTrTimesCorrect + r.trToDeTimesCorrect) ? 2 : 0;
         const hardBonus = w.isHard ? 2 : 0;
-
         const totalWeight = baseWeight + wrongBonus + hardBonus;
-        if (totalWeight <= 0) return;
-
-        pool.push({ word: w, weight: totalWeight });
+        if (totalWeight > 0) pool.push({ word: w, weight: totalWeight });
       });
 
       if (pool.length === 0) return null;
@@ -1002,11 +901,8 @@
 
     function chooseReviewDirection(word) {
       const r = word.stats.recognition;
-      const levelDeTr = r.deToTrLevel;
-      const levelTrDe = r.trToDeLevel;
-      const weaker = levelDeTr <= levelTrDe ? 'deToTr' : 'trToDe';
-      if (Math.random() < 0.7) return weaker;
-      return weaker === 'deToTr' ? 'trToDe' : 'deToTr';
+      const weaker = r.deToTrLevel <= r.trToDeLevel ? 'deToTr' : 'trToDe';
+      return Math.random() < 0.7 ? weaker : (weaker === 'deToTr' ? 'trToDe' : 'deToTr');
     }
 
     function weightedRandomWordForWriting() {
@@ -1014,17 +910,11 @@
       const pool = [];
       state.words.forEach(w => {
         const write = w.stats.writing;
-        const baseWeight =
-          write.level <= 1 ? 5 :
-          write.level === 2 ? 3 :
-          write.level === 3 ? 2 :
-          1;
-        const wrongBonus =
-          write.timesWrong > write.timesCorrect ? 2 : 0;
+        const baseWeight = write.level <= 1 ? 5 : write.level === 2 ? 3 : write.level === 3 ? 2 : 1;
+        const wrongBonus = write.timesWrong > write.timesCorrect ? 2 : 0;
         const hardBonus = w.isHard ? 2 : 0;
         const totalWeight = baseWeight + wrongBonus + hardBonus;
-        if (totalWeight <= 0) return;
-        pool.push({ word: w, weight: totalWeight });
+        if (totalWeight > 0) pool.push({ word: w, weight: totalWeight });
       });
       if (pool.length === 0) return null;
       const sum = pool.reduce((acc, x) => acc + x.weight, 0);
@@ -1036,88 +926,23 @@
       return pool[pool.length - 1].word;
     }
 
-    // --- Practice rendering & logic ---
-
-    let currentCard = null;
-
-    function renderPracticeIdle() {
-      const area = document.getElementById('practice-area');
-      area.innerHTML = '<p class="muted center">Press <strong>Start</strong> to begin a session.</p>';
+    function getSessionCorrectCount(wordId, key) {
+      if (!state.session.perSessionCorrect[wordId]) return 0;
+      return state.session.perSessionCorrect[wordId][key] || 0;
     }
-
-    function renderSessionSummary() {
-      const area = document.getElementById('practice-area');
-      const s = state.session.summary;
-      if (!s) {
-        renderPracticeIdle();
-        return;
-      }
-
-      const hasReview = s.reviewTotal > 0;
-      const hasWriting = (s.writingCorrect + s.writingMistakes) > 0;
-      const totalReviewed = s.reviewTotal + s.writingCorrect + s.writingMistakes;
-
-      if (!hasReview && !hasWriting) {
-        renderPracticeIdle();
-        return;
-      }
-
-      let reviewCards = '';
-      if (hasReview) {
-        reviewCards = `
-          <div class="grid grid-3 mt-2">
-            <div class="card">
-              <div class="stat-label">Review correct (I know)</div>
-              <div class="stat-value">${s.reviewCorrect}</div>
-            </div>
-            <div class="card">
-              <div class="stat-label">Review repeat</div>
-              <div class="stat-value">${s.reviewRepeat}</div>
-            </div>
-          </div>
-        `;
-      }
-
-      let writingCards = '';
-      if (hasWriting) {
-        writingCards = `
-          <div class="grid grid-3 mt-2">
-            <div class="card">
-              <div class="stat-label">Writing correct</div>
-              <div class="stat-value">${s.writingCorrect}</div>
-            </div>
-            <div class="card">
-              <div class="stat-label">Writing mistakes</div>
-              <div class="stat-value">${s.writingMistakes}</div>
-            </div>
-          </div>
-        `;
-      }
-
-      area.innerHTML = `
-        <div class="center">
-          <h3 class="mb-2">Session summary</h3>
-          <p class="muted small mb-2">Total cards this session: <strong>${totalReviewed}</strong></p>
-          ${reviewCards}
-          ${writingCards}
-          <p class="muted small mt-4">Press <strong>Start</strong> to begin a new session.</p>
-        </div>
-      `;
+    function incrementSessionCorrect(wordId, key) {
+      if (!state.session.perSessionCorrect[wordId]) state.session.perSessionCorrect[wordId] = {};
+      state.session.perSessionCorrect[wordId][key] = (state.session.perSessionCorrect[wordId][key] || 0) + 1;
     }
 
     function renderPracticeCard() {
       const area = document.getElementById('practice-area');
-      if (!state.session.active || !currentCard) {
-        renderPracticeIdle();
-        return;
-      }
+      if (!state.session.active || !currentCard) { renderPracticeIdle(); return; }
 
       const { word, mode, direction, phase, attemptsLeft } = currentCard;
 
       if (mode === 'review') {
-        const dirLabel = direction === 'deToTr'
-          ? 'Direction: German → Turkish'
-          : 'Direction: Turkish → German';
+        const dirLabel = direction === 'deToTr' ? 'Direction: German → Turkish' : 'Direction: Turkish → German';
 
         if (phase === 'question') {
           if (direction === 'deToTr') {
@@ -1136,21 +961,20 @@
           } else {
             area.innerHTML = `
               <div class="practice-direction">${dirLabel}</div>
-              <div class="practice-word">${word.turkish}</div>
+              <div class="practice-word">${escapeHtml(word.turkish)}</div>
               <div class="flex-center gap-2 mt-4">
                 <button class="btn-secondary btn-block" id="btn-show-answer">Show answer</button>
               </div>
             `;
           }
+
           document.getElementById('btn-show-answer').onclick = () => {
             currentCard.phase = 'answer';
             renderPracticeCard();
           };
-
         } else {
-          // answer phase
           const germanHTML = renderGermanHTML(word.german);
-          const example = word.exampleSentence;
+          const example = (word.exampleSentence || '').trim();
 
           area.innerHTML = `
             <div class="practice-direction">${dirLabel}</div>
@@ -1158,10 +982,10 @@
               <span>${germanHTML}</span>
               <button class="btn-sm speak-btn" id="btn-speak-a">🔊</button>
             </div>
-            <div class="turkish-answer">${word.turkish}</div>
+            <div class="turkish-answer">${escapeHtml(word.turkish)}</div>
             ${example ? `
               <div class="example-sentence">
-                <span class="muted small">Example sentence (German):</span><br>${example}
+                <span class="muted small">Example sentence (German):</span><br>${escapeHtml(example)}
               </div>` : ''}
             <div class="flex-center gap-2 mt-4">
               <button class="btn-outline btn-block" id="btn-repeat">Repeat</button>
@@ -1173,13 +997,13 @@
           document.getElementById('btn-know').onclick = () => reviewAnswer(true);
         }
 
-      } else if (mode === 'writing') {
+      } else {
         area.innerHTML = `
           <div class="practice-direction">Mode: Writing • Type the German word</div>
-          <div class="practice-word">${word.turkish}</div>
+          <div class="practice-word">${escapeHtml(word.turkish)}</div>
           <div class="center mb-2 small">Attempts left: <strong id="attempts-left">${attemptsLeft}</strong></div>
           <div class="flex-col gap-2" style="max-width:420px; margin:0 auto;">
-            <label>German</label>
+            <label for="input-answer">German</label>
             <input type="text" id="input-answer" />
             <div class="flex gap-2 mt-2">
               <button class="btn-outline btn-block" id="btn-skip">Skip & repeat</button>
@@ -1192,9 +1016,7 @@
         ansInput.focus();
         document.getElementById('btn-check').onclick = () => writingCheck(false);
         document.getElementById('btn-skip').onclick = () => writingCheck(true);
-        ansInput.addEventListener('keydown', e => {
-          if (e.key === 'Enter') writingCheck(false);
-        });
+        ansInput.addEventListener('keydown', e => { if (e.key === 'Enter') writingCheck(false); });
       }
     }
 
@@ -1202,37 +1024,20 @@
       const r = word.stats.recognition;
       const now = Date.now();
       if (direction === 'deToTr') {
-        r.deToTrCorrectStreak++;
-        r.deToTrTimesCorrect++;
-        r.deToTrLastSeen = now;
-        if (r.deToTrCorrectStreak >= 3) {
-          r.deToTrLevel = Math.min(5, r.deToTrLevel + 1);
-          r.deToTrCorrectStreak = 0;
-        }
+        r.deToTrCorrectStreak++; r.deToTrTimesCorrect++; r.deToTrLastSeen = now;
+        if (r.deToTrCorrectStreak >= 3) { r.deToTrLevel = Math.min(5, r.deToTrLevel + 1); r.deToTrCorrectStreak = 0; }
       } else {
-        r.trToDeCorrectStreak++;
-        r.trToDeTimesCorrect++;
-        r.trToDeLastSeen = now;
-        if (r.trToDeCorrectStreak >= 3) {
-          r.trToDeLevel = Math.min(5, r.trToDeLevel + 1);
-          r.trToDeCorrectStreak = 0;
-        }
+        r.trToDeCorrectStreak++; r.trToDeTimesCorrect++; r.trToDeLastSeen = now;
+        if (r.trToDeCorrectStreak >= 3) { r.trToDeLevel = Math.min(5, r.trToDeLevel + 1); r.trToDeCorrectStreak = 0; }
       }
     }
-
     function applyWrongRecognition(word, direction) {
       const r = word.stats.recognition;
       const now = Date.now();
       if (direction === 'deToTr') {
-        r.deToTrCorrectStreak = 0;
-        r.deToTrTimesWrong++;
-        r.deToTrLastSeen = now;
-        r.deToTrLevel = Math.max(0, r.deToTrLevel - 1);
+        r.deToTrCorrectStreak = 0; r.deToTrTimesWrong++; r.deToTrLastSeen = now; r.deToTrLevel = Math.max(0, r.deToTrLevel - 1);
       } else {
-        r.trToDeCorrectStreak = 0;
-        r.trToDeTimesWrong++;
-        r.trToDeLastSeen = now;
-        r.trToDeLevel = Math.max(0, r.trToDeLevel - 1);
+        r.trToDeCorrectStreak = 0; r.trToDeTimesWrong++; r.trToDeLastSeen = now; r.trToDeLevel = Math.max(0, r.trToDeLevel - 1);
       }
     }
 
@@ -1244,19 +1049,13 @@
       if (isCorrect) {
         applyCorrectRecognition(word, direction);
         incrementSessionCorrect(word.id, dirKey);
-        if (state.session.summary) {
-          state.session.summary.reviewCorrect++;
-          state.session.summary.reviewTotal++;
-        }
+        state.session.summary.reviewCorrect++;
+        state.session.summary.reviewTotal++;
       } else {
         applyWrongRecognition(word, direction);
-        if (state.session.perSessionCorrect[word.id]) {
-          state.session.perSessionCorrect[word.id][dirKey] = 0;
-        }
-        if (state.session.summary) {
-          state.session.summary.reviewRepeat++;
-          state.session.summary.reviewTotal++;
-        }
+        if (state.session.perSessionCorrect[word.id]) state.session.perSessionCorrect[word.id][dirKey] = 0;
+        state.session.summary.reviewRepeat++;
+        state.session.summary.reviewTotal++;
       }
 
       state.settings.reviewedToday++;
@@ -1268,101 +1067,67 @@
     function applyCorrectWriting(word) {
       const w = word.stats.writing;
       const now = Date.now();
-      w.correctStreak++;
-      w.timesCorrect++;
-      w.lastSeen = now;
-      if (w.correctStreak >= 3) {
-        w.level = Math.min(5, w.level + 1);
-        w.correctStreak = 0;
-      }
+      w.correctStreak++; w.timesCorrect++; w.lastSeen = now;
+      if (w.correctStreak >= 3) { w.level = Math.min(5, w.level + 1); w.correctStreak = 0; }
     }
-
     function applyWrongWriting(word) {
       const w = word.stats.writing;
       const now = Date.now();
-      w.correctStreak = 0;
-      w.timesWrong++;
-      w.lastSeen = now;
-      w.level = Math.max(0, w.level - 1);
+      w.correctStreak = 0; w.timesWrong++; w.lastSeen = now; w.level = Math.max(0, w.level - 1);
     }
-
     function buildWritingHint(correct, attemptsLeft) {
       const clean = correct.trim();
       const len = clean.length;
       if (!len) return '';
-      if (attemptsLeft === 2) {
-        return `starts with "${clean[0]}" (${len} letters)`;
-      }
-      if (attemptsLeft === 1) {
-        const prefix = clean.slice(0, 2);
-        return `starts with "${prefix}" (${len} letters)`;
-      }
+      if (attemptsLeft === 2) return `starts with "${clean[0]}" (${len} letters)`;
+      if (attemptsLeft === 1) return `starts with "${clean.slice(0,2)}" (${len} letters)`;
       return '';
     }
 
-        function writingCheck(forceSkip) {
+    function writingCheck(forceSkip) {
       if (!currentCard) return;
       const { word } = currentCard;
-      const dirKey = 'writing';
-      const correct = word.german.trim();
+      const correct = (word.german || '').trim();
 
-      // Ortak: yanlış cevap sonrası cevap ekranını göster
       function showWritingAnswerScreen() {
         const area = document.getElementById('practice-area');
         area.innerHTML = `
           <div class="practice-direction">Mode: Writing • Answer</div>
-          <div class="practice-word">${word.turkish}</div>
-          <div class="center mt-2 small">Correct German: <strong>${correct}</strong></div>
+          <div class="practice-word">${escapeHtml(word.turkish)}</div>
+          <div class="center mt-2 small">Correct German: <strong>${escapeHtml(correct)}</strong></div>
           <div class="flex-center gap-2 mt-4">
             <button class="btn-secondary btn-block" id="btn-next-writing">Next card</button>
           </div>
         `;
-        document.getElementById('btn-next-writing').onclick = () => {
-          nextCard();
-        };
+        document.getElementById('btn-next-writing').onclick = () => nextCard();
       }
 
-      // 1) Kullanıcı "Skip & repeat"e bastıysa
       if (forceSkip) {
         applyWrongWriting(word);
-        if (state.session.perSessionCorrect[word.id]) {
-          state.session.perSessionCorrect[word.id][dirKey] = 0;
-        }
-        if (state.session.summary) {
-          state.session.summary.writingMistakes++;
-        }
+        state.session.summary.writingMistakes++;
         state.settings.reviewedToday++;
         saveState();
         updateStatsUI();
-
-        // HEMEN DOĞRU CEVABI GÖSTER
         showWritingAnswerScreen();
         return;
       }
 
-      // 2) Normal cevap kontrolü
       const feedbackEl = document.getElementById('writing-feedback');
       const userAnswer = document.getElementById('input-answer').value.trim();
-      if (!userAnswer) {
-        feedbackEl.textContent = 'Please type an answer or use Skip.';
-        return;
-      }
+      if (!userAnswer) { feedbackEl.textContent = 'Please type an answer or use Skip.'; return; }
 
       const normalize = s => s.trim().toLowerCase();
       if (normalize(userAnswer) === normalize(correct)) {
         feedbackEl.textContent = 'Correct!';
         applyCorrectWriting(word);
-        incrementSessionCorrect(word.id, dirKey);
-        if (state.session.summary) {
-          state.session.summary.writingCorrect++;
-        }
+        incrementSessionCorrect(word.id, 'writing');
+        state.session.summary.writingCorrect++;
         state.settings.reviewedToday++;
         saveState();
         updateStatsUI();
         return setTimeout(nextCard, 600);
       }
 
-      // 3) Yanlış ama hala hakkı var → hint ver
       currentCard.attemptsLeft--;
       if (currentCard.attemptsLeft > 0) {
         let msg = 'Not correct. Try again.';
@@ -1373,27 +1138,17 @@
         if (attemptsEl) attemptsEl.textContent = currentCard.attemptsLeft;
         document.getElementById('input-answer').focus();
       } else {
-        // 4) Haklar bitti → yanlış say, cevap ekranı
         applyWrongWriting(word);
-        if (state.session.perSessionCorrect[word.id]) {
-          state.session.perSessionCorrect[word.id][dirKey] = 0;
-        }
-        if (state.session.summary) {
-          state.session.summary.writingMistakes++;
-        }
+        state.session.summary.writingMistakes++;
         state.settings.reviewedToday++;
         saveState();
         updateStatsUI();
-
         showWritingAnswerScreen();
       }
     }
-    
+
     function nextCard() {
-      if (!state.session.active) {
-        renderSessionSummary();
-        return;
-      }
+      if (!state.session.active) { renderPracticeIdle(); return; }
 
       const mode = state.session.mode;
       let candidate = null;
@@ -1405,66 +1160,39 @@
           if (!w) break;
           const dir = chooseReviewDirection(w);
           const dirKey = dir === 'deToTr' ? 'rec_deToTr' : 'rec_trToDe';
-          const sessionCount = getSessionCorrectCount(w.id, dirKey);
-          if (sessionCount >= 3) continue;
-          candidate = w;
-          direction = dir;
+          if (getSessionCorrectCount(w.id, dirKey) >= 3) continue;
+          candidate = w; direction = dir;
           break;
         }
-        if (!candidate) {
-          state.session.active = false;
-          toast('All words cooled down for this session. Stop & Start for a new session.', 'info');
-          renderSessionSummary();
-          return;
-        }
-        currentCard = {
-          word: candidate,
-          mode: 'review',
-          direction,
-          phase: 'question',
-          attemptsLeft: null,
-        };
+        if (!candidate) { state.session.active = false; toast('Session finished.', 'info'); renderPracticeIdle(); return; }
+        currentCard = { word: candidate, mode: 'review', direction, phase: 'question', attemptsLeft: null };
       } else {
         for (let i = 0; i < 20; i++) {
           const w = weightedRandomWordForWriting();
           if (!w) break;
-          const sessionCount = getSessionCorrectCount(w.id, 'writing');
-          if (sessionCount >= 3) continue;
-          candidate = w;
-          break;
+          if (getSessionCorrectCount(w.id, 'writing') >= 3) continue;
+          candidate = w; break;
         }
-        if (!candidate) {
-          state.session.active = false;
-          toast('All words cooled down for this session. Stop & Start for a new session.', 'info');
-          renderSessionSummary();
-          return;
-        }
-        currentCard = {
-          word: candidate,
-          mode: 'writing',
-          direction: null,
-          phase: null,
-          attemptsLeft: 3,
-        };
+        if (!candidate) { state.session.active = false; toast('Session finished.', 'info'); renderPracticeIdle(); return; }
+        currentCard = { word: candidate, mode: 'writing', direction: null, phase: null, attemptsLeft: 3 };
       }
 
       renderPracticeCard();
     }
 
-    // --- Events ---
-
     function setupEvents() {
       document.getElementById('btn-add-word').onclick = () => {
-  const g = document.getElementById('input-german').value;
-  const t = document.getElementById('input-turkish').value;
-  const ex = document.getElementById('input-example').value;
+        const g = document.getElementById('input-german').value;
+        const t = document.getElementById('input-turkish').value;
+        const ex = document.getElementById('input-example').value;
 
-  addWord(g, t, ex);
+        addWord(g, t, ex);
 
-  document.getElementById('input-german').value = '';
-  document.getElementById('input-turkish').value = '';
-  document.getElementById('input-example').value = '';
-};
+        document.getElementById('input-german').value = '';
+        document.getElementById('input-turkish').value = '';
+        document.getElementById('input-example').value = '';
+      };
+
       document.getElementById('btn-bulk-add').onclick = () => {
         const txt = document.getElementById('textarea-bulk').value;
         bulkAdd(txt);
@@ -1493,10 +1221,7 @@
       };
 
       document.getElementById('btn-start').onclick = () => {
-        if (state.words.length === 0) {
-          toast('Please add at least one word first.', 'error');
-          return;
-        }
+        if (state.words.length === 0) { toast('Please add at least one word first.', 'error'); return; }
         state.session.active = true;
         state.session.perSessionCorrect = {};
         initSessionSummary();
@@ -1505,60 +1230,42 @@
 
       document.getElementById('btn-stop').onclick = () => {
         state.session.active = false;
-        renderSessionSummary();
+        renderPracticeIdle();
       };
 
       document.getElementById('btn-export').onclick = async () => {
-        const data = {
-          words: state.words,
-          settings: state.settings,
-        };
-        const json = JSON.stringify(data, null, 2);
+        const json = JSON.stringify({ words: state.words, settings: state.settings }, null, 2);
         document.getElementById('textarea-export').value = json;
-        try {
-          await navigator.clipboard.writeText(json);
-          toast('Exported JSON copied to clipboard.', 'success');
-        } catch {
-          toast('Exported JSON shown in textbox. Copy it manually.', 'info');
-        }
+        try { await navigator.clipboard.writeText(json); toast('Exported JSON copied to clipboard.', 'success'); }
+        catch { toast('Exported JSON shown in textbox. Copy it manually.', 'info'); }
       };
+
       document.getElementById('btn-export-file').onclick = () => {
-  const data = {
-    words: state.words,
-    settings: state.settings,
-  };
-  const json = JSON.stringify(data, null, 2);
-
-  const blob = new Blob([json], { type: 'text/plain' });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'vocab-backup.txt';
-  a.click();
-
-  URL.revokeObjectURL(url);
-  toast('TXT file downloaded.', 'success');
-};
+        const json = JSON.stringify({ words: state.words, settings: state.settings }, null, 2);
+        const blob = new Blob([json], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'vocab-backup.txt';
+        a.click();
+        URL.revokeObjectURL(url);
+        toast('TXT file downloaded.', 'success');
+      };
 
       document.getElementById('btn-import').onclick = () => {
         if (!confirm('Importing will overwrite current data. Continue?')) return;
         const txt = document.getElementById('textarea-import').value;
-        if (!txt.trim()) {
-          toast('Paste JSON first.', 'error');
-          return;
-        }
+        if (!txt.trim()) { toast('Paste JSON first.', 'error'); return; }
         try {
           const parsed = JSON.parse(txt);
           state.words = (parsed.words || []).map((w, idx) => ({
             ...w,
             createdAt: w.createdAt || (Date.now() + idx),
             isHard: !!w.isHard,
+            stats: w.stats || createEmptyStats(),
+            exampleSentence: w.exampleSentence || '',
           }));
-          state.settings = Object.assign(
-            { dailyGoal: 30, lastReviewDate: null, reviewedToday: 0 },
-            parsed.settings || {}
-          );
+          state.settings = Object.assign({ dailyGoal: 30, lastReviewDate: null, reviewedToday: 0 }, parsed.settings || {});
           hardResetSession();
           saveState();
           updateStatsUI();
@@ -1569,45 +1276,36 @@
           toast('Invalid JSON.', 'error');
         }
       };
+
       document.getElementById('btn-import-file').onclick = () => {
-  const fileInput = document.getElementById('file-import');
-  const file = fileInput.files && fileInput.files[0];
+        const fileInput = document.getElementById('file-import');
+        const file = fileInput.files && fileInput.files[0];
+        if (!file) { toast('Select a JSON file first.', 'error'); return; }
 
-  if (!file) {
-    toast('Select a JSON file first.', 'error');
-    return;
-  }
-
-  const reader = new FileReader();
-
-  reader.onload = (e) => {
-    try {
-      const text = e.target.result;
-      const parsed = JSON.parse(text);
-
-      state.words = (parsed.words || []).map((w, idx) => ({
-        createdAt: w.createdAt || (Date.now() + idx),
-        ...w,
-      }));
-
-      state.settings = Object.assign(
-        { dailyGoal: 30, lastReviewDate: null, reviewedToday: 0 },
-        parsed.settings || {}
-      );
-
-      hardResetSession();
-      saveState();
-      updateStatsUI();
-      renderPracticeIdle();
-      toast('File import successful.', 'success');
-    } catch (err) {
-      console.error(err);
-      toast('Invalid JSON file.', 'error');
-    }
-  };
-
-  reader.readAsText(file);
-};
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const parsed = JSON.parse(e.target.result);
+            state.words = (parsed.words || []).map((w, idx) => ({
+              ...w,
+              createdAt: w.createdAt || (Date.now() + idx),
+              isHard: !!w.isHard,
+              stats: w.stats || createEmptyStats(),
+              exampleSentence: w.exampleSentence || '',
+            }));
+            state.settings = Object.assign({ dailyGoal: 30, lastReviewDate: null, reviewedToday: 0 }, parsed.settings || {});
+            hardResetSession();
+            saveState();
+            updateStatsUI();
+            renderPracticeIdle();
+            toast('File import successful.', 'success');
+          } catch (err) {
+            console.error(err);
+            toast('Invalid JSON file.', 'error');
+          }
+        };
+        reader.readAsText(file);
+      };
 
       document.getElementById('word-search').addEventListener('input', e => {
         uiState.searchQuery = e.target.value;
@@ -1616,13 +1314,9 @@
 
       function toggleSort(column) {
         const cur = uiState.sort;
-        if (cur.column !== column) {
-          uiState.sort = { column, direction: 'desc' };
-        } else if (cur.direction === 'desc') {
-          uiState.sort.direction = 'asc';
-        } else {
-          uiState.sort = { column: null, direction: 'desc' };
-        }
+        if (cur.column !== column) uiState.sort = { column, direction: 'desc' };
+        else if (cur.direction === 'desc') uiState.sort.direction = 'asc';
+        else uiState.sort = { column: null, direction: 'desc' };
         updateStatsUI();
       }
 
@@ -1631,8 +1325,6 @@
       document.getElementById('th-trde').addEventListener('click', () => toggleSort('trDe'));
       document.getElementById('th-writing').addEventListener('click', () => toggleSort('writing'));
     }
-
-    // --- Init + PWA registration ---
 
     loadState();
     resetTodayIfNeeded();
